@@ -28,7 +28,16 @@ class Autor extends CI_Controller {
         $this->load->view('frontend/template/htmlfooter');
     }
     public function sobre() {
-        
+        $dados['categoria'] = $this->categorias;
+        $dados['autores']= $this->autor->listarautores();
+        $dados['titulo']='Sobre nós';
+        $dados['subtitulo']='Conheça nossa equipe';
+        $this->load->view('frontend/template/htmlheader',$dados);
+        $this->load->view('frontend/template/header');
+        $this->load->view('frontend/sobrenos');
+        $this->load->view('frontend/template/aside');
+        $this->load->view('frontend/template/footer');
+        $this->load->view('frontend/template/htmlfooter');
     }
 
 }

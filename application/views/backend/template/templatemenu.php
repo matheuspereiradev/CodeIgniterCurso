@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Painel Administrativo</a>
+                <a class="navbar-brand" href="<?php echo base_url('admin'); ?>">Painel Administrativo</a>
             </div>
             <!-- /.navbar-top-links -->
 
@@ -18,7 +18,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Categorias</a>
+                            <a href="<?php echo base_url('admin/Categoria'); ?>"><i class="fa fa-sitemap fa-fw"></i> Categorias</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Postagens</a>

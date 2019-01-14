@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Painel Administrativo</title>
+    <title><?php echo $titulo; ?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url('assets/backend/css/bootstrap.min.css') ?>" rel="stylesheet">
