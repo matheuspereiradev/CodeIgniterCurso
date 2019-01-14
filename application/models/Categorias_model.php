@@ -27,4 +27,14 @@ class Categorias_model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function adicionar($titulo) {
+        $dados['titulo'] = $titulo;
+        return $this->db->insert('categoria', $dados); //inserir na tabela categoria o array dados
+    }
+
+    public function excluir($id) {
+        $this->db->where('md5(id)',$id);
+        return $this->db->delete('categoria');
+    }
+
 }
