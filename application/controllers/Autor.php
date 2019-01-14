@@ -27,5 +27,8 @@ class Autor extends CI_Controller {
         $this->load->view('frontend/template/footer');
         $this->load->view('frontend/template/htmlfooter');
     }
+    public function sobre() {
+        
+    }
 
 }
