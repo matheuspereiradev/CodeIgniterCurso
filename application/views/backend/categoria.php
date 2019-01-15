@@ -45,37 +45,32 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php $this->table->set_heading("Nome", "Editar", "Excluir") ?>
-
-                            <?php
+                            <?php $this->table->set_heading("Nome", "Editar", "Excluir");
+                            $template = array(
+                                        'table_open' => '<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-tabela">'
+                                    );
+                                    $this->table->set_template($template);
+                                    
                             if (isset($categorias)) {
                                 foreach ($categorias as $cat) {
-                                    ?>
-                                    <?php
+                                    
                                     $atributoshtml = array(
                                         'onclick' => "return confirm('Deseja realmente excluir a categoria?')",
-                                        'class' => 'btn btn-danger'
+                                        'class' => 'btn btn-danger btn-block'
                                     );
 
                                     $nomecat = $cat->titulo;
-                                    $alterarcat = anchor(base_url('admin/categoria'), '<i class="fas fa-edit"></i>Alterar');
-                                    $excluircat = anchor(base_url('admin/categoria/excluir/' . md5($cat->id)), '<i class="fas fa-trash-alt fa-"></i> Excluir',$atributoshtml);
+                                    $alterarcat = anchor(base_url('admin/categoria/alterar/' . md5($cat->id)), '<i class="fas fa-edit"></i> Alterar', array(
+                                        'class' => 'btn btn-primary btn-block'
+                                    ));
+                                    $excluircat = anchor(base_url('admin/categoria/excluir/' . md5($cat->id)), '<i class="fas fa-trash-alt fa-"></i> Excluir', $atributoshtml);
 
                                     $this->table->add_row($nomecat, $alterarcat, $excluircat);
 
-                                    $template = array(
-                                        'table_open' => '<table class="table table-bordered">'
-                                    );
-                                    $this->table->set_template($template);
-
-                                    echo $this->table->generate();
-                                    ?>
-
-                                    <?php
                                 }
-                            }
+                            }echo $this->table->generate();//atentar para nao deixar o generate dentro do foreach
                             ?>
-
+                            
                         </div>
 
                     </div>
