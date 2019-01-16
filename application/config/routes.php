@@ -58,3 +58,4 @@ $route['postagem/(:num)/(:any)'] = 'controladoresfront/Postagem/index/$1/$2';
 $route['autor/(:num)/(:any)'] = 'controladoresfront/Autor/index/$1/$2';
 $route['sobrenos'] = 'controladoresfront/Autor/sobre';
 $route['admin'] = 'admin/HomeAdmin';
+$route['admin/login'] = 'admin/Usuarios/pag_login';

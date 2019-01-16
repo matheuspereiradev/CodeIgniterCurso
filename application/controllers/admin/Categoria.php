@@ -23,10 +23,10 @@ class Categoria extends CI_Controller {
     public function inserir() {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('nomecategoria', 'Nome da categoria','required|min_length[3]|max_length[100]|is_unique[categoria.titulo]');//nome do input. apelido que vai exibir prousuario
-        if($this->form_validation->run()==false){
+        if($this->form_validation->run()==false){//SE DER ERRADO
             $this->index();//chama o metodo index daqui
         }else{
-            $titulo= $this->input->post('nomecategoria');//pegando os valores que vem do formulario
+            $titulo = $this->input->post('nomecategoria');//pegando os valores que vem do formulario
             if($this->categorias->adicionar($titulo)){//usar metodo domodel
                 redirect(base_url('admin/categoria'));
             }else{
@@ -41,12 +41,12 @@ class Categoria extends CI_Controller {
         if($this->categorias->excluir($id)){
                 redirect(base_url('admin/categoria'));
             }else{
-                echo "Erro ao inserir dados";
+                echo "Erro ao excluir dados";
             }
     }
     
     public function alterar($id) {//chama tela d ealterar
-    $this->load->library('table');
+    
         $dados['titulo'] = 'Painel administartivo';
         $dados['subtitulo'] = 'categoria';
         $dados['categorias']= $this->categorias->listarcategoria($id);//categoriaA nao categoriAS

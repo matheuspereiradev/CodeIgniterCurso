@@ -12,7 +12,7 @@ class Categorias_model extends CI_Model {
         parent::__construct();
     }
 
-    public function listarcategorias() {
+    public function listarcategorias() {//LISTA TODAS AS CATEGORIAS
         $this->db->order_by('titulo', 'ASC'); //ORDENAR OS RESULTADOS EM ORDEM ALFABÉTICA DO CAMPO TITULO EM SQL "ORDER BY 'titulo' ASC "
         $resultado = $this->db->get('categoria');
         if ($resultado->num_rows() > 0) {
@@ -21,13 +21,13 @@ class Categorias_model extends CI_Model {
         return;
     }
 
-    public function listartitulo($id) {
+    public function listartitulo($id) {//PEGA O TITULO DE UMA CATEGORIA ESPECIFICA
         $this->db->from('categoria');
         $this->db->where('id = ' . $id);
         return $this->db->get()->result();
     }
 
-    public function listarcategoria($id) {//unica para ediçao
+    public function listarcategoria($id) {//PEGA TODAS AS INFORMAÇOES ONDE O ID ESTA EM MD5
         $this->db->from('categoria');
         $this->db->where('md5(id)', $id);
         return $this->db->get()->result();
