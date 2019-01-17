@@ -6,18 +6,20 @@ class Usuarios extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model('Autor_model', 'modelusr');
     }
 
     public function index() {
         if(!$this->session->userdata('status')){
             redirect(base_url('admin/login'));
         }
+        $this->load->library('table');
         $dados['titulo'] = 'Painel administartivo';
         $dados['subtitulo'] = 'usuários';
-
+        $dados['usuarios'] = $this->modelusr->listarautores();
         $this->load->view('backend/template/htmlheader', $dados);
         $this->load->view('backend/template/templatemenu');
-        $this->load->view('backend/usuarios');
+        $this->load->view('backend/usuario');
         $this->load->view('backend/template/htmlfooter');
     }
 
@@ -39,9 +41,7 @@ class Usuarios extends CI_Controller {
         } else {
             $usuario = $this->input->post('usuariologin');
             $senha = $this->input->post('usuariosenha');
-            $this->load->model('Usuario_model', 'modelusr');
             $dadosusr = $this->modelusr->buscarUsrLogin($usuario, $senha);
-
             if (count($dadosusr) == 1) {//se encontar no banco
                 $dadosUsuario['dados'] = $dadosusr[0];
                 $dadosUsuario['status'] = true;
@@ -52,9 +52,7 @@ class Usuarios extends CI_Controller {
                 $dadosUsuario['status'] = false;
                 $this->session->set_userdata($dadosUsuario);
                 redirect(base_url('admin/login'));
-            }
-        }
-    }
+            }}}
 
     public function logout() {
         $dadosUsuario['dados'] = null;
