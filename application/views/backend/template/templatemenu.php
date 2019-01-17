@@ -24,10 +24,10 @@
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Postagens</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Usuários</a>
+                            <a href="<?php echo base_url('admin/Usuarios'); ?>"><i class="fa fa-wrench fa-fw"></i> Usuários</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sign-out-alt fa-fw"></i> Sair do Sistema</a>
+                            <a href="<?php echo base_url('admin/Usuarios/logout'); ?>"><i class="fa fa-sign-out-alt fa-fw"></i> Sair do Sistema</a>
                         </li>
                     </ul>
                 </div>

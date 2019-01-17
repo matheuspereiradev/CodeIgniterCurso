@@ -7,7 +7,9 @@ class Categoria extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Categorias_model','categorias');
-        
+        if(!$this->session->userdata('status')){
+            redirect(base_url('admin/login'));
+        }
     }
 
     public function index() {//metodo para carregar a pagina home

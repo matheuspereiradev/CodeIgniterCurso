@@ -8,7 +8,7 @@
                     <div class="panel-body">
                         <?php 
                         echo validation_errors('<div class="alert alert-danger">','</div>');
-                        echo form_open('admin/usuarios/fazerlogin');//metodo de login
+                        echo form_open('admin/Usuarios/fazerlogin');//metodo de login
                         ?>
                             <fieldset>
                                 <div class="form-group">

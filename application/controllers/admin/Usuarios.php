@@ -8,14 +8,17 @@ class Usuarios extends CI_Controller {
         parent::__construct();
     }
 
-    public function index() {//metodo para carregar a pagina home
+    public function index() {
+        if(!$this->session->userdata('status')){
+            redirect(base_url('admin/login'));
+        }
         $dados['titulo'] = 'Painel administartivo';
-        $dados['subtitulo'] = 'home';
+        $dados['subtitulo'] = 'usuários';
 
-        $this->load->view('backend/template/htmlheader', $dados); //sempre é igual por isso ta no template
-        $this->load->view('backend/template/templatemenu'); //sempre é igual
-        $this->load->view('backend/home'); //sempre muda esta é a pagina home do site diferencial desse metodo
-        $this->load->view('backend/template/htmlfooter'); //sempre igual
+        $this->load->view('backend/template/htmlheader', $dados);
+        $this->load->view('backend/template/templatemenu');
+        $this->load->view('backend/usuarios');
+        $this->load->view('backend/template/htmlfooter');
     }
 
     public function pag_login() {
@@ -36,28 +39,28 @@ class Usuarios extends CI_Controller {
         } else {
             $usuario = $this->input->post('usuariologin');
             $senha = $this->input->post('usuariosenha');
-            $this->db->where('user', $usuario);
-            $this->db->where('senha', $senha);
-            $userLogado = $this->db->get('usuario')->result();
-            if (count($userLogado) == 1) {//se encontarr no banco
-                $dadosSessao['userLogado'] = $userLogado[0];
-                $dadosSessao['userLogado'] = true;
-                /* $newdata = array(
-                    'nome' => 'matheus',
-                    'email' => 'matheus@gmail',
-                    'userLogado' => TRUE
-                );
+            $this->load->model('Usuario_model', 'modelusr');
+            $dadosusr = $this->modelusr->buscarUsrLogin($usuario, $senha);
 
-                $this->session->set_userdata( $newdata );*/
-                $this->session->set_userdata($dadosSessao);
+            if (count($dadosusr) == 1) {//se encontar no banco
+                $dadosUsuario['dados'] = $dadosusr[0];
+                $dadosUsuario['status'] = true;
+                $this->session->set_userdata($dadosUsuario);
                 redirect(base_url('admin'));
             } else {
-                $dadosSessao['userLogado'] = null;
-                $dadosSessao['userLogado'] = false;
-                $this->session->set_userdata($dadosSessao);
+                $dadosUsuario['dados'] = null;
+                $dadosUsuario['status'] = false;
+                $this->session->set_userdata($dadosUsuario);
                 redirect(base_url('admin/login'));
             }
         }
+    }
+
+    public function logout() {
+        $dadosUsuario['dados'] = null;
+        $dadosUsuario['status'] = false;
+        $this->session->set_userdata($dadosUsuario);
+        redirect(base_url('admin/login'));
     }
 
 }

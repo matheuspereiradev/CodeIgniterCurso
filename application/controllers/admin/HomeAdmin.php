@@ -6,6 +6,9 @@ class HomeAdmin extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        if(!$this->session->userdata('status')){//proteção
+            redirect(base_url('admin/login'));
+        }
     }
 
     public function index() {//metodo para carregar a pagina home
