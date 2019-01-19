@@ -28,8 +28,20 @@ class Autor_model extends CI_Model {
 
     public function buscarUsrLogin($usuario, $senha) {
         $this->db->where('user', $usuario);
-        $this->db->where('senha', $senha);
+        $this->db->where('senha', sha1(md5($senha)));
         return $this->db->get('usuario')->result();
     }
 
+    public function inserir($nome,$email,$historico, $user,$senha) {
+        $usuario['nome']=$nome;
+        $usuario['email']=$email;
+        $usuario['historico']=$historico;
+        $usuario['user']=$user;
+        $usuario['senha']= sha1(md5($senha));
+        return $this->db->insert('usuario',$usuario);
+    }
+    public function excluir($id) {
+        $this->db->where('md5(id)',$id);
+        return $this->db->delete('usuario');
+    }
 }
