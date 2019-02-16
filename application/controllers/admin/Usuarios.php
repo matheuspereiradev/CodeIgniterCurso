@@ -10,7 +10,7 @@ class Usuarios extends CI_Controller {
     }
 
     public function index() {
-        if(!$this->session->userdata('status')){
+        if (!$this->session->userdata('status')) {
             redirect(base_url('admin/login'));
         }
         $this->load->library('table');
@@ -23,55 +23,88 @@ class Usuarios extends CI_Controller {
         $this->load->view('backend/template/htmlfooter');
     }
 
-    
-    public function inserirusr() {
-        if(!$this->session->userdata('status')){
+    public function alterar($id) {
+        if (!$this->session->userdata('status')) {
+            redirect(base_url('admin/login'));
+        }
+        $dados['titulo'] = 'Painel administartivo';
+        $dados['subtitulo'] = 'usuário';
+        $dados['usuario'] = $this->modelusr->buscar($id);
+        $this->load->view('backend/template/htmlheader', $dados);
+        $this->load->view('backend/template/templatemenu');
+        $this->load->view('backend/editarUsuario');
+        $this->load->view('backend/template/htmlfooter');
+    }
+
+    public function salvar_usr_editado() {
+        if (!$this->session->userdata('status')) {
             redirect(base_url('admin/login'));
         }
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('nomeusr', 'Nome do usuário',
-                'required|min_length[5]|max_length[100]');
-        
-        $this->form_validation->set_rules('emailusr', 'Email do usuário',
-                'required|min_length[3]|max_length[100]|valid_email|is_unique[usuario.email]');
-        
-        $this->form_validation->set_rules('historicousr', 'Histórico de usuário',
-                'required|min_length[20]');
-        
-        $this->form_validation->set_rules('loginusr', 'Login',
-                'required|min_length[3]|max_length[50]|is_unique[usuario.user]');
-        
-        $this->form_validation->set_rules('senhausr', 'Senha',
-                'required|min_length[4]|max_length[50]');
-        
-        $this->form_validation->set_rules('senhausr2', 'Senha de confirmação',
-                'required|min_length[4]|max_length[50]|matches[senhausr]');
-        
-        
-        if($this->form_validation->run()==false){
+        $this->form_validation->set_rules('nomeusr', 'Nome do usuário', 'required|min_length[5]|max_length[100]');
+        $this->form_validation->set_rules('emailusr', 'Email do usuário', 'required|min_length[3]|max_length[100]|valid_email|is_unique[usuario.email]');
+        $this->form_validation->set_rules('historicousr', 'Histórico de usuário', 'required|min_length[20]');
+        $this->form_validation->set_rules('loginusr', 'Login', 'required|min_length[3]|max_length[50]|is_unique[usuario.user]');
+        $this->form_validation->set_rules('senhausr', 'Senha', 'required|min_length[4]|max_length[50]');
+        $this->form_validation->set_rules('senhausr2', 'Senha de confirmação', 'required|min_length[4]|max_length[50]|matches[senhausr]');
+        if ($this->form_validation->run() == false) {
             $this->index();
-        }else{
+        } else {
+            $id = $this->input->post('id');
             $nome = $this->input->post('nomeusr');
             $email = $this->input->post('emailusr');
             $historico = $this->input->post('historicousr');
             $user = $this->input->post('loginusr');
             $senha = $this->input->post('senhausr');
-            
-            if($this->modelusr->inserir($nome,$email,$historico, $user,$senha)){
+
+            if ($this->modelusr->editar($id, $nome, $email, $historico, $user, $senha)) {
                 redirect(base_url('admin/Usuarios'));
-            }else{
+            } else {
+                echo "Erro ao editar usuário";
+            }
+        }
+        
+    }
+
+    public function inserirusr() {
+        if (!$this->session->userdata('status')) {
+            redirect(base_url('admin/login'));
+        }
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('nomeusr', 'Nome do usuário', 'required|min_length[5]|max_length[100]');
+        $this->form_validation->set_rules('emailusr', 'Email do usuário', 'required|min_length[3]|max_length[100]|valid_email|is_unique[usuario.email]');
+        $this->form_validation->set_rules('historicousr', 'Histórico de usuário', 'required|min_length[20]');
+        $this->form_validation->set_rules('loginusr', 'Login', 'required|min_length[3]|max_length[50]|is_unique[usuario.user]');
+        $this->form_validation->set_rules('senhausr', 'Senha', 'required|min_length[4]|max_length[50]');
+        $this->form_validation->set_rules('senhausr2', 'Senha de confirmação', 'required|min_length[4]|max_length[50]|matches[senhausr]');
+        if ($this->form_validation->run() == false) {
+            $this->index();
+        } else {
+            $nome = $this->input->post('nomeusr');
+            $email = $this->input->post('emailusr');
+            $historico = $this->input->post('historicousr');
+            $user = $this->input->post('loginusr');
+            $senha = $this->input->post('senhausr');
+
+            if ($this->modelusr->inserir($nome, $email, $historico, $user, $senha)) {
+                redirect(base_url('admin/Usuarios'));
+            } else {
                 echo "Erro ao cadastrar usuário";
             }
-            
         }
     }
+
     public function excluir($id) {
-        if($this->modelusr->excluir($id)){
-                redirect(base_url('admin/Usuarios'));
-            }else{
-                echo "Erro ao excluir dados";
-            }
+        if (!$this->session->userdata('status')) {
+            redirect(base_url('admin/login'));
+        }
+        if ($this->modelusr->excluir($id)) {
+            redirect(base_url('admin/Usuarios'));
+        } else {
+            echo "Erro ao excluir dados";
+        }
     }
+
     public function pag_login() {
         $dados['titulo'] = 'Painel administartivo';
         $dados['subtitulo'] = 'Entrar';
@@ -101,7 +134,9 @@ class Usuarios extends CI_Controller {
                 $dadosUsuario['status'] = false;
                 $this->session->set_userdata($dadosUsuario);
                 redirect(base_url('admin/login'));
-            }}}
+            }
+        }
+    }
 
     public function logout() {
         $dadosUsuario['dados'] = null;
