@@ -29,7 +29,7 @@ class Usuarios extends CI_Controller {
         }
         $dados['titulo'] = 'Painel administartivo';
         $dados['subtitulo'] = 'usuário';
-        $dados['usuario'] = $this->modelusr->buscar($id);
+        $dados['usuario'] = $this->modelusr->buscarAlgumasInformacoes($id);
         $this->load->view('backend/template/htmlheader', $dados);
         $this->load->view('backend/template/templatemenu');
         $this->load->view('backend/editarUsuario');
@@ -48,7 +48,7 @@ class Usuarios extends CI_Controller {
         $this->form_validation->set_rules('senhausr', 'Senha', 'required|min_length[4]|max_length[50]');
         $this->form_validation->set_rules('senhausr2', 'Senha de confirmação', 'required|min_length[4]|max_length[50]|matches[senhausr]');
         if ($this->form_validation->run() == false) {
-            $this->index();
+            $this->alterar($this->input->post('id'));
         } else {
             $id = $this->input->post('id');
             $nome = $this->input->post('nomeusr');
@@ -63,7 +63,6 @@ class Usuarios extends CI_Controller {
                 echo "Erro ao editar usuário";
             }
         }
-        
     }
 
     public function inserirusr() {
