@@ -104,6 +104,41 @@ class Usuarios extends CI_Controller {
         }
     }
 
+    public function novafoto() {
+        if (!$this->session->userdata('status')) {
+            redirect(base_url('admin/login'));
+        }
+        $id = $this->input->post('id');
+        $config['image_library'] = 'gd2';
+        $config['upload_path'] = './assets/frontend/img/usuario';
+        $config['allowed_types'] = 'jpg';
+        $config['file_name'] = $id . ".jpg";
+        $config['overwrite'] = TRUE; //permanecer com mesmo id
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload()) {
+            echo $this->upload->display_errors() . 'erro no upload';
+        } else {
+            $config2['source_image'] = './assets/frontend/img/usuario/' . $id . '.jpg';
+            $config2['create_thumb'] = FALSE;
+            $config2['width'] = 200;
+            $config2['height'] = 200;
+            $this->load->library('image_lib');
+            $this->image_lib->initialize($config2);
+            if ($this->image_lib->resize()) {
+                if ($this->modelusr->editar_img($id)) {//se conseguir fazer a alteração no banco
+                    redirect(base_url('admin/Usuarios/alterar/' . $id));
+                } else {
+                    echo "Erro ao alterar imagem no banco";
+                }
+
+                //$this->image_lib->clear();
+            } else {
+                echo $this->image_lib->display_errors() . 'erro na imagem';
+            }
+        }
+    }
+
     public function pag_login() {
         $dados['titulo'] = 'Painel administartivo';
         $dados['subtitulo'] = 'Entrar';

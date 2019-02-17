@@ -19,7 +19,7 @@ class Autor_model extends CI_Model {
     }
 
     public function buscarAlgumasInformacoes($id) {
-        $this->db->select('id, nome,email, historico,user');
+        $this->db->select('id, nome,email, historico,user,img');
         $this->db->from('usuario');
         $this->db->where('md5(id)', $id);
         return $this->db->get()->result();
@@ -62,6 +62,14 @@ class Autor_model extends CI_Model {
         $usuario['user'] = $user;
         $usuario['senha'] = sha1(md5($senha));
         $this->db->where('id', $id);
+        return $this->db->update('usuario', $usuario);
+    }
+
+    public function editar_img($id) {//se quiser gravar o nome ou camiho do imagem tem q adicionar esse paramentro
+        $usuario['img'] = 1; //so pra gravar se tem ou nao uma imagem pq ela ja é o id da imagem do usuario
+
+
+        $this->db->where('md5(id)', $id);
         return $this->db->update('usuario', $usuario);
     }
 

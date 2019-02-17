@@ -68,6 +68,17 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <?php
+                                if ($usr->img == 1) {
+                                    echo img("assets/frontend/img/usuario/" . md5($usr->id) . ".jpg");
+                                } else {
+                                    echo img("assets/frontend/img/semfoto.png");
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <?php
                                 //formulario com helpers do framework
                                 $divopen = '<div class="form-group">';
                                 $divclose = '</div>';
@@ -78,7 +89,7 @@
                                 echo form_upload($imagem);
                                 echo $divclose;
                                 echo $divopen;
-                                $botao = array('nome' => 'bt-adicionar', 'id' => 'bt-adicionar', 'class' => 'btn btn-defaut', 'value' => "Adiconar imagem");
+                                $botao = array('nome' => 'bt-adicionar', 'id' => 'bt-adicionar', 'class' => 'btn btn-defaut', 'value' => "Adicionar imagem");
                                 echo form_submit($botao);
                                 echo $divclose;
                                 echo form_close();
