@@ -19,15 +19,23 @@
                     }
                     ?> </small>
             </h1>
-            <?php if (isset($autor)) {
+            <?php
+            if (isset($autor)) {
                 foreach ($autor as $usr) {
                     ?>
+                    <?php
+                    if ($usr->img == 1) {
+                        $fotouser = "assets/frontend/img/usuario/" . md5($usr->id) . ".jpg";
+                    } else {
+                        $fotouser = "assets/frontend/img/semfoto.png";
+                    }
+                    ?>
                     <div class="col-md-4">
-                        <img class="img-responsive img-circle" src="http://placehold.it/200x200" alt="">
+                        <img class="img-responsive img-circle" src="<?php echo base_url($fotouser) ?>" alt="">
                     </div>
                     <div class="col-md-8 ">
                         <h2>
-        <?php echo $usr->nome; ?>
+                            <?php echo $usr->nome; ?>
                         </h2>
                         <hr>
                         Email:
@@ -37,7 +45,8 @@
 
                         <hr>
                     </div>
-                <?php }
+                    <?php
+                }
             }
             ?>
         </div>

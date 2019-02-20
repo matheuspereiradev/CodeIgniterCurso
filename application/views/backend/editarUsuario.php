@@ -1,5 +1,3 @@
-
-
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -65,8 +63,8 @@
                         <?php echo 'Imagem de destaque do ' . $subtitulo; ?>
                     </div>
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
+                        <div class="row" style="padding-bottom: 10px">
+                            <div class="col-lg-12 col-lg-offset-3">
                                 <?php
                                 if ($usr->img == 1) {
                                     echo img("assets/frontend/img/usuario/" . md5($usr->id) . ".jpg");

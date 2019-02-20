@@ -25,7 +25,7 @@
                             <input type="text" id="nomeusr" name="nomeusr" class="form-control"
                                    placeholder="Digite o nome do usuário" value="<?php echo set_value('nomeusr'); ?>">
                             <br>
-                            
+
                             <label id="emailusr">Email do usuario:</label>
                             <input type="text" id="emailusr" name="emailusr" class="form-control"
                                    placeholder="Digite o email do usuário" value="<?php echo set_value('emailusr'); ?>">
@@ -65,33 +65,43 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php $this->table->set_heading("Foto","Nome", "Editar", "Excluir");
+                            <style>
+                                img{
+                                    width: 60px;
+                                }
+                            </style>
+
+                            <?php
+                            $this->table->set_heading("Foto", "Nome", "Editar", "Excluir");
                             $template = array(
-                                        'table_open' => '<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-tabela">'
-                                    );
-                                    $this->table->set_template($template);
-                                    
+                                'table_open' => '<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-tabela">'
+                            );
+                            $this->table->set_template($template);
+
                             if (isset($usuarios)) {
                                 foreach ($usuarios as $user) {
-                                    
+
                                     $atributoshtml = array(
                                         'onclick' => "return confirm('Deseja realmente excluir o usuário?')",
                                         'class' => 'btn btn-danger btn-block'
                                     );
-
+                                    if ($user->img == 1) {
+                                        $fotouser = img("assets/frontend/img/usuario/" . md5($user->id) . ".jpg");
+                                    } else {
+                                        $fotouser = img("assets/frontend/img/semfoto.png");
+                                    }
                                     $nomeuser = $user->nome;
-                                    $fotouser = "foto";
+
                                     $alteraruser = anchor(base_url('admin/Usuarios/alterar/' . md5($user->id)), '<i class="fas fa-edit"></i> Alterar', array(
                                         'class' => 'btn btn-primary btn-block'
                                     ));
                                     $excluiruser = anchor(base_url('admin/Usuarios/excluir/' . md5($user->id)), '<i class="fas fa-trash-alt fa-"></i> Excluir', $atributoshtml);
 
-                                    $this->table->add_row($fotouser,$nomeuser, $alteraruser, $excluiruser);
-
+                                    $this->table->add_row($fotouser, $nomeuser, $alteraruser, $excluiruser);
                                 }
-                            }echo $this->table->generate();//atentar para nao deixar o generate dentro do foreach
+                            }echo $this->table->generate(); //atentar para nao deixar o generate dentro do foreach
                             ?>
-                            
+
                         </div>
 
                     </div>
