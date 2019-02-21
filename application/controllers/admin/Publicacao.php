@@ -61,4 +61,12 @@ class Publicacao extends CI_Controller {
         }
     }
 
+    public function excluir($id) {
+        if ($this->publicacao->excluir($id)) {
+            redirect(base_url('admin/publicacao'));
+        } else {
+            echo "Erro ao excluir post";
+        }
+    }
+
 }

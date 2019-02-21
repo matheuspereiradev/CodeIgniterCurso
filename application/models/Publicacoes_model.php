@@ -106,4 +106,9 @@ class Publicacoes_model extends CI_Model {
         return $this->db->insert('postagens', $dados);
     }
 
+    public function excluir($id) {
+        $this->db->where('md5(id)', $id);
+        return $this->db->delete('postagens');
+    }
+
 }
