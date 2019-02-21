@@ -82,7 +82,30 @@ class Publicacao extends CI_Controller {
     }
 
     public function salvarPostEditado() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('titulo', 'Titulo do post', 'required|min_length[5]|max_length[150]|is_unique[postagens.titulo]');
+        $this->form_validation->set_rules('subtitulo', 'Resumo do post', 'required|min_length[10]|max_length[150]');
+        $this->form_validation->set_rules('conteudo', 'Conteudo do post', 'required|min_length[10]|max_length[4500]');
+        $this->form_validation->set_rules('cat', 'categoria', 'required');
 
+        if ($this->form_validation->run() == false) {
+            $this->criarPost();
+        } else {
+            $id = $this->input->post('id');
+            $categoria = $this->input->post('cat');
+            $titulo = $this->input->post('titulo');
+            $subtitulo = $this->input->post('subtitulo');
+            $conteudo = $this->input->post('conteudo');
+            $data = pegardata(); //pega data do meu helper funcoes
+            $user = $this->session->userdata('dados')->id;
+
+
+            if ($this->publicacao->editar($id, $categoria, $titulo, $subtitulo, $conteudo, $data, $user)) {
+                redirect(base_url('admin/Publicacao'));
+            } else {
+                echo "Erro adiconar a publicação";
+            }
+        }
     }
 
 }

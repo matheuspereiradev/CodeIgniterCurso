@@ -124,4 +124,16 @@ class Publicacoes_model extends CI_Model {
         return $this->db->delete('postagens');
     }
 
+    public function editar($id, $categoria, $titulo, $subtitulo, $conteudo, $data, $user) {
+        $dados['id'] = $id;
+        $dados['categoria'] = $categoria;
+        $dados['titulo'] = $titulo;
+        $dados['subtitulo'] = $subtitulo;
+        $dados['conteudo'] = $conteudo;
+        $dados['data'] = $data;
+        $dados['user'] = $user;
+        $this->db->where('id', $id);
+        return $this->db->update('postagens', $dados);
+    }
+
 }
