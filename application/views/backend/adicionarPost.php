@@ -25,14 +25,14 @@
                             <br>
                             <label id="subtitulo">Resumo do post:</label>
                             <textarea id="subtitulo" name="subtitulo" class="form-control"
-                                      placeholder="Digite o resumo do seu post" ><?php echo set_value('subtitulo'); ?></textarea>
+                                      placeholder="Digite o resumo do seu post" rows="4"><?php echo set_value('subtitulo'); ?></textarea>
                             <br>
                             <label id="conteudo">Conteúdo:</label>
                             <textarea id="conteudo" name="conteudo" class="form-control"
-                                      placeholder="Digite aqui o conteudo de sua publicação" rows="10" ><?php echo set_value('subtitulo'); ?></textarea>
+                                      placeholder="Digite aqui o conteudo de sua publicação" rows="10" ><?php echo set_value('conteudo'); ?></textarea>
                             <br>
-                            <label id="categoria">Categoria:</label>
-                            <select id="cat" class="form-control">
+                            <label id="categoria" >Categoria:</label>
+                            <select id="cat" name ="cat" class="form-control">
                                 <option>Selecione a categoria</option>
                                 <?php
                                 if (isset($categorias)) {

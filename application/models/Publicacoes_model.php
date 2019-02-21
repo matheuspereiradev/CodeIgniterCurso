@@ -96,4 +96,14 @@ class Publicacoes_model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function inserir($categoria, $titulo, $subtitulo, $conteudo, $data, $user) {
+        $dados['categoria'] = $categoria;
+        $dados['titulo'] = $titulo;
+        $dados['subtitulo'] = $subtitulo;
+        $dados['conteudo'] = $conteudo;
+        $dados['data'] = $data;
+        $dados['user'] = $user;
+        return $this->db->insert('postagens', $dados);
+    }
+
 }

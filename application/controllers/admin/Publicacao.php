@@ -34,4 +34,31 @@ class Publicacao extends CI_Controller {
         $this->load->view('backend/template/htmlfooter');
     }
 
+    public function salvarPost() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('titulo', 'Titulo do post', 'required|min_length[5]|max_length[150]|is_unique[postagens.titulo]');
+        $this->form_validation->set_rules('subtitulo', 'Resumo do post', 'required|min_length[10]|max_length[150]');
+        $this->form_validation->set_rules('conteudo', 'Conteudo do post', 'required|min_length[10]|max_length[4500]');
+        $this->form_validation->set_rules('cat', 'categoria', 'required|differs[n]', array('differs' => 'Selecione a categoria'));
+
+        if ($this->form_validation->run() == false) {
+            $this->criarPost();
+        } else {
+            $categoria = $this->input->post('cat');
+            $titulo = $this->input->post('titulo');
+            $subtitulo = $this->input->post('subtitulo');
+            $conteudo = $this->input->post('conteudo');
+            $data = pegardata(); //pega data do meu helper funcoes
+            //$img = $this->input->post('img');
+            $user = $this->session->userdata('dados')->id;
+
+
+            if ($this->publicacao->inserir($categoria, $titulo, $subtitulo, $conteudo, $data, $user)) {
+                redirect(base_url('admin/Publicacao'));
+            } else {
+                echo "Erro adiconar a publicação";
+            }
+        }
+    }
+
 }
