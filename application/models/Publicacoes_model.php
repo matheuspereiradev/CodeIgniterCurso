@@ -89,6 +89,19 @@ class Publicacoes_model extends CI_Model {
         return;
     }
 
+    public function pesquisar_post($id) {
+        $this->db->select('postagens.id as id, postagens.categoria as categoria, postagens.titulo as titulo, postagens.conteudo as conteudo, postagens.data as data, postagens.img as img, postagens.user as user, usuario.nome as nome, usuario.id as idusuario, postagens.subtitulo as resumo');
+        $this->db->from('postagens');
+        $this->db->join('usuario', 'usuario.id=postagens.user');
+        //$this->db->order_by('')
+        $this->db->where('md5(postagens.id)', $id);
+        $resultado = $this->db->get();
+        if ($resultado->num_rows() > 0) {
+            return $resultado->result();
+        }
+        return;
+    }
+
     public function listartitulo($id) {
         $this->db->select('id, titulo');
         $this->db->from('postagens');

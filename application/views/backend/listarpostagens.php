@@ -42,7 +42,7 @@
                                     $subtitulopub = $pub->subtitulo;
                                     $datapub = $pub->data;
 
-                                    $alterarpub = anchor(base_url('admin/categoria/alterar/' . md5($pub->idpost)), '<i class="fas fa-edit"></i> Alterar', array(
+                                    $alterarpub = anchor(base_url('admin/publicacao/alterar/' . md5($pub->idpost)), '<i class="fas fa-edit"></i> Alterar', array(
                                         'class' => 'btn btn-primary btn-block'
                                     ));
                                     $excluirpub = anchor(base_url('admin/publicacao/excluir/' . md5($pub->idpost)), '<i class="fas fa-trash-alt fa-"></i> Excluir', $atributoshtml);

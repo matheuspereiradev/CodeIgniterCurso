@@ -39,7 +39,7 @@ class Publicacao extends CI_Controller {
         $this->form_validation->set_rules('titulo', 'Titulo do post', 'required|min_length[5]|max_length[150]|is_unique[postagens.titulo]');
         $this->form_validation->set_rules('subtitulo', 'Resumo do post', 'required|min_length[10]|max_length[150]');
         $this->form_validation->set_rules('conteudo', 'Conteudo do post', 'required|min_length[10]|max_length[4500]');
-        $this->form_validation->set_rules('cat', 'categoria', 'required|differs[n]', array('differs' => 'Selecione a categoria'));
+        $this->form_validation->set_rules('cat', 'categoria', 'required', array('differs' => 'Selecione a categoria'));
 
         if ($this->form_validation->run() == false) {
             $this->criarPost();
@@ -67,6 +67,22 @@ class Publicacao extends CI_Controller {
         } else {
             echo "Erro ao excluir post";
         }
+    }
+
+    public function alterar($id) {
+        $dados['titulo'] = 'Painel administrativo';
+        $dados['subtitulo'] = "postagem";
+        $dados['noticia'] = $this->publicacao->pesquisar_post($id);
+        $this->load->model('Categorias_model', 'categorias');
+        $dados['categorias'] = $this->categorias->listarcategorias();
+        $this->load->view('backend/template/htmlheader', $dados);
+        $this->load->view('backend/template/templatemenu');
+        $this->load->view('backend/editarPost');
+        $this->load->view('backend/template/htmlfooter');
+    }
+
+    public function salvarPostEditado() {
+
     }
 
 }

@@ -131,8 +131,6 @@ class Usuarios extends CI_Controller {
                 } else {
                     echo "Erro ao alterar imagem no banco";
                 }
-
-                //$this->image_lib->clear();
             } else {
                 echo $this->image_lib->display_errors() . 'erro na imagem';
             }
