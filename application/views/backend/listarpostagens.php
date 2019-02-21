@@ -8,7 +8,7 @@
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
-            <button type="submit" class="btn btn-primary btn-block btn-lg">Criar postagens</button>
+            <a href="<?php echo base_url('adiconarPost'); ?>"> <button type="submit" class="btn btn-primary btn-block btn-lg">Criar postagens</button></a>
             <!-- /.panel-body -->
 
         </div>

@@ -23,4 +23,15 @@ class Publicacao extends CI_Controller {
         $this->load->view('backend/template/htmlfooter');
     }
 
+    public function criarPost() {
+        $dados['titulo'] = 'Painel administrativo';
+        $dados['subtitulo'] = "postagem";
+        $this->load->model('Categorias_model', 'categorias');
+        $dados['categorias'] = $this->categorias->listarcategorias();
+        $this->load->view('backend/template/htmlheader', $dados);
+        $this->load->view('backend/template/templatemenu');
+        $this->load->view('backend/adicionarPost');
+        $this->load->view('backend/template/htmlfooter');
+    }
+
 }
