@@ -108,4 +108,35 @@ class Publicacao extends CI_Controller {
         }
     }
 
+    public function novafoto() {
+        $id = $this->input->post('id');
+        $config['image_library'] = 'gd2';
+        $config['upload_path'] = './assets/frontend/img/bannerpost';
+        $config['allowed_types'] = 'jpg';
+        $config['file_name'] = $id . ".jpg";
+        $config['overwrite'] = TRUE; //permanecer com mesmo id
+        $this->load->library('upload');
+        //fazendo o upload
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload()) {
+            echo $this->upload->display_errors() . 'erro no upload';
+        } else {
+            $config2['source_image'] = './assets/frontend/img/bannerpost/' . $id . '.jpg';
+            $config2['create_thumb'] = FALSE;
+            $config2['width'] = 900;
+            $config2['height'] = 300;
+            $this->load->library('image_lib');
+            $this->image_lib->initialize($config2);
+            if ($this->image_lib->resize()) {
+                if ($this->publicacao->inserir_imagem($id)) {//se conseguir fazer a alteração no banco
+                    redirect(base_url('admin/Publicacao/alterar/' . $id));
+                } else {
+                    echo "Erro ao alterar imagem no banco";
+                }
+            } else {
+                echo $this->image_lib->display_errors() . 'erro na imagem';
+            }
+        }
+    }
+
 }

@@ -50,49 +50,48 @@
                                     <input type="hidden" id="id" name="id" value="<?php echo $post->id; ?>">
                                     <button type="submit" class="btn btn-primary btn-block">Salvar</button>
                                     <?php
+                                    echo form_close();
+                                    ?>
+                                </div>
+
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <?php echo 'Imagem de destaque do ' . $subtitulo; ?>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row" style="padding-bottom: 10px">
+                                <div class="col-lg-12 col-lg-offset-3">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <?php
+                                    //formulario com helpers do framework
+                                    $divopen = '<div class="form-group">';
+                                    $divclose = '</div>';
+                                    echo form_open_multipart('admin/Publicacao/novafoto');
+                                    echo form_hidden('id', md5($post->id));
+                                    echo $divopen;
+                                    $imagem = array('name' => 'userfile', 'id' => 'userfile', 'class' => 'form-control');
+                                    echo form_upload($imagem);
+                                    echo $divclose;
+                                    echo $divopen;
+                                    $botao = array('nome' => 'bt-adicionar', 'id' => 'bt-addimg', 'class' => 'btn btn-defaut', 'value' => "Adicionar imagem");
+                                    echo form_submit($botao);
+                                    echo $divclose;
                                 }
                             }
                             echo form_close();
                             ?>
-                        </div>
-
-                    </div>
-                    <!-- /.row (nested) -->
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <?php echo 'Imagem de destaque do ' . $subtitulo; ?>
-                </div>
-                <div class="panel-body">
-                    <div class="row" style="padding-bottom: 10px">
-                        <div class="col-lg-12 col-lg-offset-3">
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <?php /*
-                              //formulario com helpers do framework
-                              $divopen = '<div class="form-group">';
-                              $divclose = '</div>';
-                              echo form_open_multipart('admin/Usuarios/novafoto');
-                              echo form_hidden('id', md5($usr->id));
-                              echo $divopen;
-                              $imagem = array('name' => 'userfile', 'id' => 'userfile', 'class' => 'form-control');
-                              echo form_upload($imagem);
-                              echo $divclose;
-                              echo $divopen;
-                              $botao = array('nome' => 'bt-adicionar', 'id' => 'bt-adicionar', 'class' => 'btn btn-defaut', 'value' => "Adicionar imagem");
-                              echo form_submit($botao);
-                              echo $divclose;
-                              echo form_close();
-                              //fecha o foreach
-                             */ ?>
                         </div>
                     </div>
                 </div>
