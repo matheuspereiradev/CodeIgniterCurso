@@ -21,8 +21,10 @@
             </h1>
 
             <!-- Postagem -->
-<?php if (isset($postagem)) {
-    foreach ($postagem as $post) { ?>
+            <?php
+            if (isset($postagem)) {
+                foreach ($postagem as $post) {
+                    ?>
 
 
                     <h2>
@@ -33,13 +35,22 @@
                     </p>
                     <p><span class="glyphicon glyphicon-time"></span> <?php echo postadoem($post->data); ?></p>
                     <hr>
-                    <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                    <?php
+                    if ($post->img == 1) {
+                        $img = "assets/frontend/img/bannerpost/" . md5($post->idpost) . ".jpg";
+                    } else {
+                        $img = "assets/frontend/img/postsembaner.png";
+                    }
+                    ?>
+                    <img class="img-responsive" src="<?php echo base_url($img); ?>" alt="">
                     <hr>
                     <p><?php echo $post->subtitulo; ?></p>
                     <a class="btn btn-primary" href="<?php echo base_url('postagem/' . $post->idpost . '/' . limpar($post->titulo)) ?>">Leia mais <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                     <hr>
-    <?php }
-} ?>
+                <?php
+                }
+            }
+            ?>
 
         </div>
