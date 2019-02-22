@@ -17,9 +17,9 @@
                         <div class="col-lg-12">
                             <?php
                             echo validation_errors('<div class="alert alert-danger">', '</div>');
-                            echo form_open('admin/Publicacao/salvarPostEditado'); /* aponta pro outro metodo q faz a interação com o banco */
                             if (isset($noticia)) {
                                 foreach ($noticia as $post) {
+                                    echo form_open('admin/Publicacao/salvarPostEditado/' . md5($post->id)); /* aponta pro outro metodo q faz a interação com o banco */
                                     ?>
                                     <label id="titulo">Titulo do post:</label>
                                     <input type="text" id="titulo" name="titulo" class="form-control"
@@ -71,13 +71,12 @@
                                 <div class="col-lg-12">
                                     <?php
                                     if ($post->img == 1) {
-                                        echo img("assets/frontend/img/bannerpost/" . md5($post->id) . ".jpg");
+                                        $img = "assets/frontend/img/bannerpost/" . md5($post->id) . ".jpg";
                                     } else {
-                                        echo img("assets/frontend/img/postsembaner.png");
+                                        $img = "assets/frontend/img/postsembaner.png";
                                     }
                                     ?>
-
-
+                                    <img src="<?php echo base_url($img); ?>" width="100%"  >
                                 </div>
                             </div>
                             <div class="row">
@@ -93,7 +92,7 @@
                                     echo form_upload($imagem);
                                     echo $divclose;
                                     echo $divopen;
-                                    $botao = array('nome' => 'bt-adicionar', 'id' => 'bt-addimg', 'class' => 'btn btn-defaut', 'value' => "Adicionar imagem");
+                                    $botao = array('nome' => 'bt-adicionar', 'id' => 'bt-addimg', 'class' => 'btn btn-success btn-block', 'value' => "Adicionar imagem");
                                     echo form_submit($botao);
                                     echo $divclose;
                                 }

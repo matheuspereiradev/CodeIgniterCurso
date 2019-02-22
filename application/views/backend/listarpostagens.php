@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <?php
-                            $this->table->set_heading("Titulo", "Resumo", "Data", "Visualizar/Editar", "Excluir");
+                            $this->table->set_heading("Titulo", "Resumo", "Data", "Editar", "Excluir");
                             $template = array(
                                 'table_open' => '<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-tabela">'
                             );
@@ -40,7 +40,7 @@
 
                                     $nomepub = $pub->titulo;
                                     $subtitulopub = $pub->subtitulo;
-                                    $datapub = $pub->data;
+                                    $datapub = dataresumida($pub->data);
 
                                     $alterarpub = anchor(base_url('admin/publicacao/alterar/' . md5($pub->idpost)), '<i class="fas fa-edit"></i> Alterar', array(
                                         'class' => 'btn btn-primary btn-block'

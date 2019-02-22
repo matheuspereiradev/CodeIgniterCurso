@@ -75,3 +75,15 @@ function postadoem($string) {
 
     return $semana . ', ' . $dia . ' de ' . $mes . ' de ' . $ano . ' ' . $hora;
 }
+
+function dataresumida($string) {
+
+    $dia = date('d', strtotime($string));
+
+    $mes = date('m', strtotime($string));
+
+    $ano = date('Y', strtotime($string));
+    $hora = date('H:i', strtotime($string));
+
+    return $dia . '/' . $mes . '/' . $ano . ' às ' . $hora;
+}

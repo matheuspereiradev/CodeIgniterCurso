@@ -13,6 +13,7 @@ class Publicacao extends CI_Controller {
     }
 
     public function index() {
+        $this->load->helper('funcoes');
         $this->load->library('table');
         $dados['titulo'] = 'Painel administrativo';
         $dados['subtitulo'] = "postagens";
@@ -35,6 +36,7 @@ class Publicacao extends CI_Controller {
     }
 
     public function salvarPost() {
+        $this->load->helper('funcoes');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('titulo', 'Titulo do post', 'required|min_length[5]|max_length[150]|is_unique[postagens.titulo]');
         $this->form_validation->set_rules('subtitulo', 'Resumo do post', 'required|min_length[10]|max_length[150]');
@@ -81,7 +83,8 @@ class Publicacao extends CI_Controller {
         $this->load->view('backend/template/htmlfooter');
     }
 
-    public function salvarPostEditado() {
+    public function salvarPostEditado($idcrip) {
+        $this->load->helper('funcoes');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('titulo', 'Titulo do post', 'required|min_length[5]|max_length[150]|is_unique[postagens.titulo]');
         $this->form_validation->set_rules('subtitulo', 'Resumo do post', 'required|min_length[10]|max_length[150]');
@@ -89,7 +92,7 @@ class Publicacao extends CI_Controller {
         $this->form_validation->set_rules('cat', 'categoria', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->criarPost();
+            $this->alterar($idcrip);
         } else {
             $id = $this->input->post('id');
             $categoria = $this->input->post('cat');

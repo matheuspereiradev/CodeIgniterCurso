@@ -19,15 +19,15 @@
                         <div class="col-lg-12">
                             <?php
                             echo validation_errors('<div class="alert alert-danger">', '</div>');
-                            echo form_open('admin/Categoria/salvar_alteracoes'); /* aponta pro outro metodo q faz a interação com o banco */
                             foreach ($categorias as $cat) {
+                                echo form_open('admin/Categoria/salvar_alteracoes/' . md5($cat->id)); /* aponta pro outro metodo q faz a interação com o banco */
                                 ?>
                                 <label id="txt-categoria">Nome categoria:</label>
                                 <input type="text" id="txt-categoria" name="nomecategoria" class="form-control" placeholder="Digite o nome da categoria" value="<?php echo $cat->titulo; ?>">
                                 <br>
                                 <input type="hidden" name="idcategoria" id="idcategoria" value="<?php echo $cat->id; ?>">
                                 <button type="submit" class="btn btn-primary btn-block">Salvar</button>
-                            <?php
+                                <?php
                             }
                             echo form_close();
                             ?>

@@ -36,25 +36,28 @@ class Usuarios extends CI_Controller {
         $this->load->view('backend/template/htmlfooter');
     }
 
-    public function salvar_usr_editado() {
+    public function salvar_usr_editado($idcript, $usrcrip) {
         if (!$this->session->userdata('status')) {
             redirect(base_url('admin/login'));
         }
         $this->load->library('form_validation');
         $this->form_validation->set_rules('nomeusr', 'Nome do usuário', 'required|min_length[5]|max_length[100]');
-        $this->form_validation->set_rules('emailusr', 'Email do usuário', 'required|min_length[3]|max_length[100]|valid_email|is_unique[usuario.email]');
+        $this->form_validation->set_rules('emailusr', 'Email do usuário', 'required|min_length[3]|max_length[100]|valid_email');
         $this->form_validation->set_rules('historicousr', 'Histórico de usuário', 'required|min_length[20]');
-        $this->form_validation->set_rules('loginusr', 'Login', 'required|min_length[3]|max_length[50]|is_unique[usuario.user]');
+        $user = $this->input->post('loginusr');
+        if (!$user == $usrcrip) {
+            $this->form_validation->set_rules('loginusr', 'Login', 'required|min_length[3]|max_length[50]|is_unique[usuario.user]');
+        }
         $this->form_validation->set_rules('senhausr', 'Senha', 'required|min_length[4]|max_length[50]');
         $this->form_validation->set_rules('senhausr2', 'Senha de confirmação', 'required|min_length[4]|max_length[50]|matches[senhausr]');
         if ($this->form_validation->run() == false) {
-            $this->alterar($this->input->post('id'));
+            $this->alterar($idcript);
         } else {
             $id = $this->input->post('id');
             $nome = $this->input->post('nomeusr');
             $email = $this->input->post('emailusr');
             $historico = $this->input->post('historicousr');
-            $user = $this->input->post('loginusr');
+
             $senha = $this->input->post('senhausr');
 
             if ($this->modelusr->editar($id, $nome, $email, $historico, $user, $senha)) {

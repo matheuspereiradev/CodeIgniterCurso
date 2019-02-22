@@ -17,8 +17,8 @@
                         <div class="col-lg-12">
                             <?php
                             echo validation_errors('<div class="alert alert-danger">', '</div>');
-                            echo form_open('admin/Usuarios/salvar_usr_editado'); /* aponta pro outro metodo q faz a interação com o banco */
                             foreach ($usuario as $usr) {
+                                echo form_open('admin/Usuarios/salvar_usr_editado/' . md5($usr->id) . '/' . md5($usr->user)); /* aponta pro outro metodo q faz a interação com o banco */
                                 ?>
                                 <label id="nomeusr">Nome do usuario:</label>
                                 <input type="text" id="nomeusr" name="nomeusr" class="form-control"

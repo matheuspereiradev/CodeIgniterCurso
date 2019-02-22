@@ -38,17 +38,15 @@
                     <?php
                     if ($post->img == 1) {
                         $img = "assets/frontend/img/bannerpost/" . md5($post->idpost) . ".jpg";
-                    } else {
-                        $img = "assets/frontend/img/postsembaner.png";
-                    }
-                    ?>
-                    <img class="img-responsive" src="<?php echo base_url($img); ?>" alt="">
-                    <hr>
+                        ?>
+                        <img class="img-responsive" src="<?php echo base_url($img); ?>" alt="">
+                        <hr>
+                    <?php } ?>
                     <p><?php echo $post->subtitulo; ?></p>
                     <a class="btn btn-primary" href="<?php echo base_url('postagem/' . $post->idpost . '/' . limpar($post->titulo)) ?>">Leia mais <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                     <hr>
-                <?php
+                    <?php
                 }
             }
             ?>

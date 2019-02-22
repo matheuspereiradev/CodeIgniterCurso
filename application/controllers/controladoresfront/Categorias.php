@@ -11,6 +11,7 @@ class Categorias extends CI_Controller {
     }
 
     public function index($id, $slug = null) {//metodo para carregar a pagina por categorias
+        $this->load->helper('funcoes');
         $dados['categoria'] = $this->categoria; //idem home
         $this->load->model('publicacoes_model');
         $dados['postagem'] = $this->publicacoes_model->categoria_pub($id); //passar o id pro metodo categorias pub
