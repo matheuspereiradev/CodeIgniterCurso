@@ -68,7 +68,16 @@
                         </div>
                         <div class="panel-body">
                             <div class="row" style="padding-bottom: 10px">
-                                <div class="col-lg-12 col-lg-offset-3">
+                                <div class="col-lg-12">
+                                    <?php
+                                    if ($post->img == 1) {
+
+                                        echo img("assets/frontend/img/bannerpost/" . md5($post->id) . ".jpg");
+                                    } else {
+                                        echo img("http://placehold.it/900x300");
+                                    }
+                                    ?>
+
 
                                 </div>
                             </div>
