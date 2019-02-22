@@ -71,10 +71,9 @@
                                 <div class="col-lg-12">
                                     <?php
                                     if ($post->img == 1) {
-
                                         echo img("assets/frontend/img/bannerpost/" . md5($post->id) . ".jpg");
                                     } else {
-                                        echo img("http://placehold.it/900x300");
+                                        echo img("assets/frontend/img/postsembaner.png");
                                     }
                                     ?>
 
