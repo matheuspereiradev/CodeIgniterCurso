@@ -18,7 +18,7 @@ class Home extends CI_Controller {
         //estes dados so serão utilizados na pagina home por isso so estão dentro desse metodo que chama a home
         //dados para o cabeçalho
         $dados['titulo'] = 'Página inicial';
-        $dados['subtitulo'] = 'Postagens recentes pau no cu';
+        $dados['subtitulo'] = 'Postagens recentes';
 
         $this->load->view('frontend/template/htmlheader', $dados); //sempre é igual por isso ta no template
         $this->load->view('frontend/template/header'); //sempre é igual
